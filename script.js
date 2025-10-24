@@ -269,6 +269,48 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ===== CERTIFICATE MODAL LOGIC =====
+const certificateModal = document.getElementById('certificate-modal');
+const modalCertificate = document.getElementById('modal-certificate');
+const certificateCloseBtn = document.querySelector('.certificate-close');
+const certificateBackdrop = document.querySelector('.certificate-backdrop');
+
+function openCertificateModal(imageSrc, title, issuer, date) {
+    if (!certificateModal || !modalCertificate || !imageSrc) return;
+    
+    // Set certificate image
+    modalCertificate.src = imageSrc;
+    modalCertificate.alt = title;
+    
+    // Set certificate info
+    document.getElementById('modal-certificate-title').textContent = title;
+    document.getElementById('modal-certificate-issuer').textContent = issuer;
+    document.getElementById('modal-certificate-date').textContent = date;
+    
+    // Show modal
+    certificateModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCertificateModal() {
+    if (!certificateModal || !modalCertificate) return;
+    
+    // Clear certificate image
+    modalCertificate.removeAttribute('src');
+    
+    // Hide modal
+    certificateModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+if (certificateCloseBtn) certificateCloseBtn.addEventListener('click', closeCertificateModal);
+if (certificateBackdrop) certificateBackdrop.addEventListener('click', closeCertificateModal);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certificateModal && certificateModal.classList.contains('active')) {
+        closeCertificateModal();
+    }
+});
+
 // ===== CONTACT LINKS HOVER EFFECT =====
 const contactItems = document.querySelectorAll('.contact-item');
 
